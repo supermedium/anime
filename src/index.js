@@ -943,7 +943,7 @@ const engine = (() => {
 
 function handleVisibilityChange() {
   if (document.hidden) {
-    for (let i = 0, len = activeInstance.length; i < len; i++) {
+    for (let i = 0, len = activeInstances.length; i < len; i++) {
       activeInstance[i].pause();
     }
     pausedInstances = activeInstances.slice(0);
