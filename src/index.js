@@ -332,27 +332,16 @@ function filterArray(arr, callback) {
 
 let auxArrayFlatten = [];
 
-function flattenArray(arr) {
-  if (!arr.length) { return arr; }
-
-  let result = auxArrayFlatten;
-  let node = arr.pop();
-
-  do {
-    if (node.constructor === Array) {
-      for (let i = 0; i < node.length; i++) {
-        arr.push(node[i]);
-      }
+function flattenArray (arr, result) {
+  if (!result) { result = []; }
+  for (let i = 0, length = arr.length; i < length; i++) {
+    const value = arr[i];
+    if (Array.isArray(value)) {
+      flattenArray(value, result);
     } else {
-      result.push(node);
+      result.push(value);
     }
-  } while (arr.length && (node = arr.pop()) !== undefined);
-
-  result.reverse();  // Reverse result to restore the original order.
-
-  // arr turns into the auxArray and we return the previously aux array.
-  auxArrayFlatten = arr;
-  auxArrayFilter.length = 0;
+  }
   return result;
 }
 
